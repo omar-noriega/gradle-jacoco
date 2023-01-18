@@ -17,7 +17,7 @@ steps:
     tasks: 'clean test build'
 - task: PublishTestResults@2
   inputs:
-    testResultsFiles: '**/test-results/TEST-*.xml'
+    testResultsFiles: '**/test-results/test/TEST-*.xml'
     testRunTitle: 'Gradle Unit Tests'
 - task: PublishCodeCoverageResults@1
   inputs:
@@ -30,4 +30,4 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'myproject'
+    artifactName: 'gradle-jacoco-example'
