@@ -5,7 +5,7 @@ steps:
   - task: Gradle@2
     inputs:
       gradleWrapperFile: 'gradlew'
-      tasks: 'clean test build sonarqube'
+      tasks: 'clean test sonarqube'
 
   - task: PublishTestResults@2
     inputs:
@@ -25,13 +25,3 @@ steps:
 
   - task: SonarQubePostTest@1
     displayName: 'Ejecutar Sonar'
-
-  - task: CopyFiles@2
-    inputs:
-      sourceFolder: 'build/libs/'
-      targetFolder: '$(Build.ArtifactStagingDirectory)'
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: '$(Build.ArtifactStagingDirectory)'
-      artifactName: 'gradle-jacoco-example'
