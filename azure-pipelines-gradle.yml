@@ -14,7 +14,7 @@ steps:
   inputs:
     workingDirectory: ''
     gradleWrapperFile: 'gradlew'
-    tasks: 'clean test'
+    tasks: 'clean test build'
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: '**/test-results/TEST-*.xml'
