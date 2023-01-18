@@ -1,0 +1,32 @@
+pool:
+  vmImage: 'Ubuntu-20.04'
+
+steps:
+  - task: Gradle@2
+    inputs:
+      gradleWrapperFile: 'gradlew'
+      tasks: 'clean test sonarqube build'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: '**/test-results/test/TEST-*.xml'
+      testRunTitle: 'Gradle Unit Tests'
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: JaCoCo
+      summaryFileLocation: 'build/jacoco/test.exec'
+  - task: SonarQubePreBuild@1
+    inputs:
+      projectKey: 'piloto-gradle-jacoco'
+      projectName: 'piloto-gradle-jacoco'
+      projectVersion: '1.0'
+      connectedServiceName: 'SonarSura'
+
+  - task: SonarQubePostTest@1
+    displayName: 'Ejecutar Sonar'
+  
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'myproject'
