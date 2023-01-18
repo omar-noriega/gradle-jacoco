@@ -30,7 +30,7 @@ steps:
     inputs:
       sourceFolder: 'build/libs/'
       targetFolder: '$(Build.ArtifactStagingDirectory)'
-      
+
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
