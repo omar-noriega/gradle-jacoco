@@ -22,6 +22,7 @@ steps:
       projectName: 'piloto-gradle-jacoco'
       projectVersion: '1.0'
       connectedServiceName: 'SonarSura'
+      configFile: 'sonar.properties'
 
   - task: SonarQubePostTest@1
     displayName: 'Ejecutar Sonar'
