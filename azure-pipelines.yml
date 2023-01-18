@@ -5,7 +5,7 @@ steps:
   - task: Gradle@2
     inputs:
       gradleWrapperFile: 'gradlew'
-      tasks: 'clean test sonarqube build'
+      tasks: 'clean test build sonarqube'
 
   - task: PublishTestResults@2
     inputs:
