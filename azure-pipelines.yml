@@ -26,18 +26,19 @@ steps:
       summaryFileLocation: 'build/jacoco/test.exec'
 
   - task: SonarQubePrepare@4
-      displayName: 'Preparacion sonar'
-      inputs:
-        SonarQube: 'SonarSura'
-        scannerMode: 'CLI'
-        configMode: 'file'
-        configFile: 'sonar.properties'
-  - task: SonarQubeAnalyze@4
-     displayName: 'Ejecucion Sonar'
+    displayName: 'Preparacion sonar'
+    inputs:
+      SonarQube: 'SonarSuramericana'
+      scannerMode: 'CLI'
+      configMode: 'file'
+      configFile: 'sonar.properties'
   
+  - task: SonarQubeAnalyze@4
+    displayName: 'Ejecucion Sonar'
+
   - task: SonarQubePublish@4
     displayName: 'Sonar Quality gates'
-     inputs:
+    inputs:
        pollingTimeoutSec: '300'
       
   - task: CopyFiles@2
