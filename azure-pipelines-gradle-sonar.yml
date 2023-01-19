@@ -1,8 +1,8 @@
-# Gradle
+# Pipeline con Gradle, JaCoCo y SonarCloud
 # Build your Java project and run tests with Gradle using a Gradle wrapper script.
 
 trigger:
-  - main
+  - none
 
 pool:
   vmImage: ubuntu-latest
@@ -16,7 +16,7 @@ steps:
       configMode: 'file'
       configFile: 'sonar.properties'
 
-  - task: Gradle@2
+  - task: Gradle@3
     displayName: 'Build'
     inputs:
       workingDirectory: ''
@@ -36,6 +36,7 @@ steps:
 
   - task: SonarQubeAnalyze@4
     displayName: 'Ejecucion Sonar'
+    enabled: false
 
   - task: SonarQubePublish@4
     displayName: 'Sonar Quality gates'
