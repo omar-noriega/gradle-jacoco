@@ -10,6 +10,6 @@ class ProductServiceUnitTest {
     public void givenOriginalPrice_whenGetSalePrice_thenReturnsDiscountedPrice() {
         ProductService productService = new ProductService();
         double salePrice = productService.getSalePrice(100);
-        assertEquals(salePrice, 75);
+        assertEquals( 75, salePrice);
     }
 }
