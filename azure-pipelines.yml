@@ -13,8 +13,8 @@ steps:
     inputs:
       workingDirectory: ''
       gradleWrapperFile: 'gradlew'
-      tasks: 'clean test build sonarqube'
-      sonarQubeRunAnalysis: true
+      tasks: 'clean test  build'
+      sonarQubeRunAnalysis: false
       publishJUnitResults: true
   - task: PublishTestResults@2
     inputs:
@@ -32,15 +32,15 @@ steps:
       scannerMode: 'CLI'
       configMode: 'file'
       configFile: 'sonar.properties'
-  
+
   - task: SonarQubeAnalyze@4
     displayName: 'Ejecucion Sonar'
 
   - task: SonarQubePublish@4
     displayName: 'Sonar Quality gates'
     inputs:
-       pollingTimeoutSec: '300'
-      
+      pollingTimeoutSec: '300'
+
   - task: CopyFiles@2
     inputs:
       sourceFolder: 'build/libs/'
