@@ -28,7 +28,7 @@ steps:
   - task: SonarQubePrepare@4
     displayName: 'Preparacion sonar'
     inputs:
-      SonarQube: 'SonarSuramericana'
+      SonarQube: 'SonarCloud'
       scannerMode: 'CLI'
       configMode: 'file'
       configFile: 'sonar.properties'
