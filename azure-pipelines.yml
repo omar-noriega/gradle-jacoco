@@ -8,14 +8,23 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+  - task: SonarQubePrepare@4
+    displayName: 'Preparacion sonar'
+    inputs:
+      SonarQube: 'SonarCloud'
+      scannerMode: 'CLI'
+      configMode: 'file'
+      configFile: 'sonar.properties'
+
   - task: Gradle@2
     displayName: 'Build'
     inputs:
       workingDirectory: ''
       gradleWrapperFile: 'gradlew'
       tasks: 'clean test  build'
-      sonarQubeRunAnalysis: false
+      sonarQubeRunAnalysis: true
       publishJUnitResults: true
+
   - task: PublishTestResults@2
     inputs:
       testResultsFiles: '**/test-results/test/TEST-*.xml'
@@ -24,14 +33,6 @@ steps:
     inputs:
       codeCoverageTool: JaCoCo
       summaryFileLocation: 'build/jacoco/test.exec'
-
-  - task: SonarQubePrepare@4
-    displayName: 'Preparacion sonar'
-    inputs:
-      SonarQube: 'SonarCloud'
-      scannerMode: 'CLI'
-      configMode: 'file'
-      configFile: 'sonar.properties'
 
   - task: SonarQubeAnalyze@4
     displayName: 'Ejecucion Sonar'
