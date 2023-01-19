@@ -1,53 +1,43 @@
-# Pipeline con Gradle, JaCoCo y SonarCloud
-# Build your Java project and run tests with Gradle using a Gradle wrapper script.
-
-trigger:
-  - none
+# Pipeline con Gradle, JaCoCo y SonarCloud, pero creado con el wizard de Azure Pipelines
 
 pool:
-  vmImage: ubuntu-latest
+  name: Azure Pipelines
+
+variables:
+  Parameters.wrapperScript: 'gradlew'
+  Parameters.tasks: 'clean test build'
 
 steps:
-  - task: SonarQubePrepare@4
-    displayName: 'Preparacion sonar'
+  - task: SonarQubePrepare@5
+    displayName: 'Prepare analysis on SonarQube'
     inputs:
-      SonarQube: 'SonarCloud'
-      scannerMode: 'CLI'
-      configMode: 'file'
-      configFile: 'sonar.properties'
+      SonarQube: SonarCloud
+      scannerMode: Other
 
   - task: Gradle@3
-    displayName: 'Build'
+    displayName: 'gradlew clean test build'
     inputs:
-      workingDirectory: ''
-      gradleWrapperFile: 'gradlew'
-      tasks: 'clean test  build'
+      gradleWrapperFile: '$(Parameters.wrapperScript)'
+      tasks: '$(Parameters.tasks)'
+      codeCoverageToolOption: JaCoCo
       sonarQubeRunAnalysis: true
-      publishJUnitResults: true
+      sqGradlePluginVersionChoice: build
 
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFiles: '**/test-results/test/TEST-*.xml'
-      testRunTitle: 'Gradle Unit Tests'
-  - task: PublishCodeCoverageResults@1
-    inputs:
-      codeCoverageTool: JaCoCo
-      summaryFileLocation: 'build/jacoco/test.exec'
-
-  - task: SonarQubeAnalyze@4
-    displayName: 'Ejecucion Sonar'
-    enabled: false
-
-  - task: SonarQubePublish@4
-    displayName: 'Sonar Quality gates'
-    inputs:
-      pollingTimeoutSec: '300'
+  - task: SonarQubePublish@5
+    displayName: 'Publish Quality Gate Result'
 
   - task: CopyFiles@2
+    displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
     inputs:
-      sourceFolder: 'build/libs/'
-      targetFolder: '$(Build.ArtifactStagingDirectory)'
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**/*.jar'
+      TargetFolder: '$(build.artifactstagingdirectory)'
+    enabled: true
+    condition: succeededOrFailed()
+
   - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
     inputs:
-      pathToPublish: '$(Build.ArtifactStagingDirectory)'
-      artifactName: 'gradle-jacoco-example'
+      PathtoPublish: '$(build.artifactstagingdirectory)'
+    enabled: true
+    condition: succeededOrFailed()
