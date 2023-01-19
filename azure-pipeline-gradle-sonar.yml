@@ -1,0 +1,43 @@
+pool:
+  vmImage: 'Ubuntu-20.04'
+
+variables:
+  sonar.host.url: 'https://your-sonarqube-url'
+  sonar.login: 'your-sonarqube-token'
+
+steps:
+  - task: Gradle@2
+    inputs:
+      gradleWrapperFile: 'gradlew'
+      tasks: 'clean test sonarqube build'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: '**/test-results/TEST-*.xml'
+      testRunTitle: 'Gradle Unit Tests'
+
+  - task: SonarQubePrepare@4
+      displayName: 'Preparación Sonar'
+      inputs:
+        SonarQube: 'Sura'
+        scannerMode: 'CLI'
+        configMode: 'file'
+        configFile: <ruta-sonar.properties>
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: JaCoCo
+      summaryFileLocation: 'build/jacoco/test.exec'
+
+  - task: SonarQubeAnalize@4
+    displayName: 'Ejecutar Sonar'
+
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: 'build/libs/'
+      targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'myproject'
