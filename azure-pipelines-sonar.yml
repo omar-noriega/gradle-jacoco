@@ -2,7 +2,7 @@
 # Build your Java project and run tests with Gradle using a Gradle wrapper script.
 
 trigger:
-  - none
+  - main
 
 pool:
   vmImage: ubuntu-latest
