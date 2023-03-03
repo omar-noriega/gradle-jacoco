@@ -4,6 +4,8 @@ import com.baeldung.generated.Generated;
 
 public class CustomerService {
 
+    private String someName ="Some Name";
+
     //this method will be excluded from coverage due to @Generated.
     @Generated
     public String getProductId() {
@@ -11,6 +13,6 @@ public class CustomerService {
     }
 
     public String getCustomerName() {
-        return "some name";
+        return someName;
     }
 }
