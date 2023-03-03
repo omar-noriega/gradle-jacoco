@@ -1,4 +1,4 @@
-package com.baeldung.generated;
+package com.ceiba.generated;
 
 @Generated
 public class Customer {

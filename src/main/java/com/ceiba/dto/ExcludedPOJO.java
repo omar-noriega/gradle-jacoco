@@ -1,4 +1,5 @@
-package com.baeldung.dto;
+package com.ceiba.dto;
 
 public class ExcludedPOJO {
+
 }

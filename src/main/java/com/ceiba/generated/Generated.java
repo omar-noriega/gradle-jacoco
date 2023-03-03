@@ -1,4 +1,4 @@
-package com.baeldung.generated;
+package com.ceiba.generated;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

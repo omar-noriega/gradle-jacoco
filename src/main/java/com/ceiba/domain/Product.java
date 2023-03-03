@@ -1,4 +1,4 @@
-package com.baeldung.domain;
+package com.ceiba.domain;
 
 import lombok.Builder;
 import lombok.Data;

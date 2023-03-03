@@ -1,6 +1,6 @@
-package com.baeldung.config;
+package com.ceiba.config;
 
-import com.baeldung.service.ProductService;
+import com.ceiba.service.ProductService;
 
 public class AppConfig {
 

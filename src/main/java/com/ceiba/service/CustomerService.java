@@ -1,6 +1,6 @@
-package com.baeldung.service;
+package com.ceiba.service;
 
-import com.baeldung.generated.Generated;
+import com.ceiba.generated.Generated;
 
 public class CustomerService {
 
