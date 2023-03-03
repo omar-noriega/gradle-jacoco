@@ -7,4 +7,14 @@ public class ProductService {
     {
         return originalPrice - originalPrice * DISCOUNT;
     }
+
+    public double calcularNuevoPrecio(double porcentajeDescuento, double originalPrice) {
+
+        double descuento = 0;
+        if(porcentajeDescuento>0) {
+            descuento  = porcentajeDescuento/100;
+        }
+            return originalPrice - originalPrice * descuento;
+
+    }
 }
